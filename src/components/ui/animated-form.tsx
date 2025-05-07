@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { Button, ButtonProps } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { VariantProps } from 'class-variance-authority'
 
 interface AnimatedFormProps {
   children: React.ReactNode
@@ -51,7 +52,11 @@ export function AnimatedFormItem({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function AnimatedButton({ children, className, ...props }: ButtonProps) {
+interface AnimatedButtonProps extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+export function AnimatedButton({ children, className, ...props }: AnimatedButtonProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}

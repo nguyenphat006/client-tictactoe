@@ -35,7 +35,8 @@ const persistConfig = {
   transforms: [encryptor],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// Wrap rootReducer với persistReducer
+const persistedReducer = persistReducer(persistConfig, rootReducer as any);
 
 export const getStore = () => {
   const store = configureStore({

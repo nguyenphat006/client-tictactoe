@@ -19,7 +19,7 @@ export function useBotGame() {
   )
 
   const botEngineRef = useRef<BotEngine | null>(null)
-  const timerRef = useRef<NodeJS.Timeout>()
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   // Memoize bot move calculation
   const calculateBotMove = useCallback(() => {
