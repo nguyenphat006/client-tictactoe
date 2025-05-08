@@ -3,20 +3,48 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { SinglePlayerModal } from './SinglePlayerModal'
+import { TournamentModal } from './TournamentModal'
 
 interface ModeSelectCardProps {
-  mode: 'online' | 'offline'
+  mode: 'online' | 'offline' | 'tournament'
 }
 
 export default function ModeSelectCard({ mode }: ModeSelectCardProps) {
   const router = useRouter()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSinglePlayerModalOpen, setIsSinglePlayerModalOpen] = useState(false)
+  const [isTournamentModalOpen, setIsTournamentModalOpen] = useState(false)
 
   const handleClick = () => {
     if (mode === 'online') {
       router.push('/sign-in')
+    } else if (mode === 'tournament') {
+      setIsTournamentModalOpen(true)
     } else {
-      setIsModalOpen(true)
+      setIsSinglePlayerModalOpen(true)
+    }
+  }
+
+  const getButtonContent = () => {
+    switch (mode) {
+      case 'online':
+        return '🎮 Chơi Online'
+      case 'offline':
+        return '🤖 Chơi Offline'
+      case 'tournament':
+        return '🏆 Tham Gia Giải Đấu'
+      default:
+        return ''
+    }
+  }
+
+  const getButtonVariant = () => {
+    switch (mode) {
+      case 'online':
+        return 'default'
+      case 'tournament':
+        return 'secondary'
+      default:
+        return 'outline'
     }
   }
 
@@ -25,13 +53,19 @@ export default function ModeSelectCard({ mode }: ModeSelectCardProps) {
       <Button
         onClick={handleClick}
         className="w-full py-6 text-lg font-semibold capitalize"
-        variant={mode === 'online' ? 'default' : 'outline'}
+        variant={getButtonVariant()}
       >
-        {mode === 'online' ? '🎮 Chơi Online' : '🤖 Chơi Offline'}
+        {getButtonContent()}
       </Button>
+      
       <SinglePlayerModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
+        open={isSinglePlayerModalOpen} 
+        onOpenChange={setIsSinglePlayerModalOpen} 
+      />
+
+      <TournamentModal
+        open={isTournamentModalOpen}
+        onOpenChange={setIsTournamentModalOpen}
       />
     </>
   )

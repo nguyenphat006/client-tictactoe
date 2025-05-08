@@ -1,6 +1,6 @@
 'use client'
 
-import { GameContainer } from '@/components/game/GameContainer'
+import { GameContainer } from '@/components/game/singleplayer/GameContainer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useLocalGame } from '@/logic/singleplayer/local/useLocalGame'
 

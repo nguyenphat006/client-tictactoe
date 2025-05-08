@@ -14,7 +14,9 @@ export const SignupSchema = z.object({
     .regex(/\d/, { message: 'Mật khẩu phải chứa ít nhất một số' }),
   confirmPassword: z.string().min(6, {
     message: 'Mật khẩu phải có ít nhất 6 ký tự'
-  })
+  }),
+  phoneNumber: z.string().optional(),
+  code: z.string().optional()
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Mật khẩu không khớp',
   path: ['confirmPassword']

@@ -8,6 +8,7 @@ export default function HomePage() {
       <Header />
       <GameTitle />
       <div className="mt-10 w-full max-w-sm space-y-4">
+        <ModeSelectCard mode="tournament" />
         <ModeSelectCard mode="online" />
         <ModeSelectCard mode="offline" />
       </div>

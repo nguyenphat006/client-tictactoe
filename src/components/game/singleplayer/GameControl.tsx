@@ -34,4 +34,4 @@ export function GameControl({ onReset, onUndo, canUndo = false }: GameControlPro
       )}
     </div>
   )
-}
+} 

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Header from '@/components/layout/Header'
+import { LoadingProvider } from '@/components/providers/loading-provider'
 
 export default function GameLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,7 +15,9 @@ export default function GameLayout({ children }: { children: React.ReactNode }) 
             Quay về trang chủ
           </Link>
         </Button>
-        {children}
+        <LoadingProvider>
+          {children}
+        </LoadingProvider>
       </div>
     </div>
   )

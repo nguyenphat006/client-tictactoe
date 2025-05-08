@@ -1,7 +1,7 @@
-import { Board } from './Board'
+import { Board } from '../Board'
 import { GameInfo } from './GameInfo'
 import { GameControl } from './GameControl'
-import { GameResult } from './GameResult'
+import { GameResult } from '../GameResult'
 
 interface GameContainerProps {
   cells: ('X' | 'O' | null)[]

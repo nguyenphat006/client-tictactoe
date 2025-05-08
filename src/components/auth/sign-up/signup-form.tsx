@@ -28,7 +28,14 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
 
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
-    defaultValues: { name: '', email: '', password: '', confirmPassword: '' }
+    defaultValues: { 
+      name: '', 
+      email: '', 
+      password: '', 
+      confirmPassword: '',
+      phoneNumber: '',
+      code: ''
+    }
   })
 
   return (
@@ -76,6 +83,38 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input {...field} type="email" placeholder="m@example.com" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </AnimatedFormItem>
+
+            <AnimatedFormItem>
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Số điện thoại</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="0123456789" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </AnimatedFormItem>
+
+            <AnimatedFormItem>
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mã xác thực</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Nhập mã xác thực" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

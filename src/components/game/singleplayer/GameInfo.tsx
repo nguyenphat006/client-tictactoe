@@ -91,4 +91,4 @@ export function GameInfo({
       </Card>
     </div>
   )
-}
+} 

@@ -1,92 +1,44 @@
-import axios from 'axios';
+import { privateAxios, publicAxios } from '@/lib/api';
+import { 
+  LoginRequest, 
+  LoginResponse, 
+  RegisterRequest, 
+  RegisterResponse,
+  SendOTPRequest,
+  SendOTPResponse 
+} from '@/types/auth.interface';
+import { API_ENDPOINTS } from '@/constants/api';
 
-// Types
-interface LoginRequest {
-    email: string;
-    password: string;
-}
+export const authService = {
+  login: async (data: LoginRequest): Promise<LoginResponse> => {
+    const response = await publicAxios.post<LoginResponse>(API_ENDPOINTS.AUTH.SIGNIN, data);
+    return response.data;
+  },
 
-interface RegisterRequest {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+  register: async (data: RegisterRequest): Promise<RegisterResponse> => {
+    const response = await publicAxios.post<RegisterResponse>(API_ENDPOINTS.AUTH.SIGNUP, data);
+    return response.data;
+  },
 
-interface RefreshTokenRequest {
-    refreshToken: string;
-}
+  sendOTP: async (data: SendOTPRequest): Promise<SendOTPResponse> => {
+    const response = await publicAxios.post<SendOTPResponse>(
+        API_ENDPOINTS.AUTH.SEND_OTP,
+        data
+    )
+    return response.data
+  },
 
-interface AuthResponse {
-    accessToken: string;
-    refreshToken: string;
-    // Add other response fields as needed
-}
+  refreshToken: async (): Promise<{ token: string }> => {
+    const response = await publicAxios.post<{ token: string }>(API_ENDPOINTS.AUTH.REFRESH_TOKEN);
+    return response.data;
+  },
 
-// Create axios instance with base configuration
-const api = axios.create({
-    baseURL: 'http://103.147.186.84:3000',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    withCredentials: true
-});
+  logout: async (): Promise<void> => {
+    await privateAxios.post(API_ENDPOINTS.AUTH.LOGOUT);
+  },
 
-class AuthService {
-    private baseUrl: string = '/auth';
-
-    async login(data: LoginRequest): Promise<AuthResponse> {
-        try {
-            const response = await fetch('http://103.147.186.84:3000/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            return response.json();
-        } catch (error) {
-            throw this.handleError(error);
-        }
-    }
-
-    async register(data: RegisterRequest): Promise<AuthResponse> {
-        try {
-            const response = await fetch('http://103.147.186.84:3000/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            return response.json();
-        } catch (error) {
-            throw this.handleError(error);
-        }
-    }
-
-    async refreshToken(data: RefreshTokenRequest): Promise<AuthResponse> {
-        try {
-            const response = await fetch('http://103.147.186.84:3000/auth/refresh-token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            return response.json();
-        } catch (error) {
-            throw this.handleError(error);
-        }
-    }
-
-    private handleError(error: any): Error {
-        if (axios.isAxiosError(error)) {
-            return new Error(error.response?.data?.message || 'An error occurred');
-        }
-        return error;
-    }
-}
-
-// Export singleton instance
-export const authService = new AuthService();
+  getProfile: async () => {
+    const response = await privateAxios.get(API_ENDPOINTS.AUTH.PROFILE);
+    return response.data;
+  }
+};

@@ -16,7 +16,9 @@ export function useSignup() {
         name: data.name,
         email: data.email,
         password: data.password,
-        confirmPassword: data.confirmPassword
+        confirmPassword: data.confirmPassword,
+        phoneNumber: data.phoneNumber || '', // Add default empty string if not provided
+        code: data.code || '' // Add default empty string if not provided
       })
 
       showToast('Đăng ký tài khoản thành công!', 'success')

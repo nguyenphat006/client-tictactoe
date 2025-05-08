@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GameContainer } from '@/components/game/GameContainer'
+import { GameContainer } from '@/components/game/singleplayer/GameContainer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { RootState } from '@/store/store'
 import { initializeGame, makeMove, undoMove, resetGame } from '@/store/features/singleplayer/gameSlide'
